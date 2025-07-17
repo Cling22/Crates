@@ -1,24 +1,37 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
+interface Crate {
+  id: number;
+  name: string;
+  image: string;
+}
+
+interface Item {
+  id: number;
+  name: string;
+  image: string;
+  value: number;
+}
+
 const tabs = ['Crates', 'Inventory'];
 
-const exampleCrates = [
+const exampleCrates: Crate[] = [
   { id: 1, name: 'Starter Crate', image: '/images/starter_crate.png' },
   { id: 2, name: 'Epic Crate', image: '/images/epic_crate.png' },
 ];
 
-const exampleInventory = [
+const exampleInventory: Item[] = [
   { id: 1, name: 'Golden Chicken', image: '/images/golden_chicken.png', value: 100 },
   { id: 2, name: 'Diamond Egg', image: '/images/diamond_egg.png', value: 200 },
 ];
 
 export default function GameMenu() {
-  const [activeTab, setActiveTab] = useState('Crates');
-  const [money, setMoney] = useState(500);
-  const [inventory, setInventory] = useState(exampleInventory);
+  const [activeTab, setActiveTab] = useState<string>('Crates');
+  const [money, setMoney] = useState<number>(500);
+  const [inventory, setInventory] = useState<Item[]>(exampleInventory);
 
-  const sellItem = (id) => {
+  const sellItem = (id: number) => {
     const item = inventory.find(i => i.id === id);
     if (item) {
       setMoney(m => m + item.value);
